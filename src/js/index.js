@@ -1,3 +1,6 @@
+/* eslint-disable prefer-const */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-useless-return */
 const QUESTIONS = [
     {
         id: 'a5e6c5bf-1a3d-4d5c-bf4a-9e4f4e2aef6f',
@@ -112,6 +115,12 @@ const QUESTIONS = [
 
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    generateQuestion()
+    generateOption()
+})
+
+
 // LOCALIZAR LA PREGUNTA DEL DOM
 // LOCALIZAR LA BOX DONDE ESTAN LOS BOTONES DE RESPUESTA Y SABER CUANDO SE HA PULSADO CADA UNO
 // CUANDO PULSES EN CUALQUIERA ALMACENAR TU OPCION ELEGIDA EN UN ARRAY PARA LUEGO COMPARARLO CON LA CORRECTANSWER AL FINAL
@@ -119,4 +128,46 @@ const QUESTIONS = [
 // CUANDO HAYAS COMPLETADO TODAS LAS PREGUNTAS TIENE QUE SALIR UNA LISTA CON EL TITULO DE FINAL RESULT
 // CADA UNA DE LAS PREGUNTAS Y ABAJO LA OPCION CORRECTA Y LA QUE TU HAS ELEGIDO (EN ROJO SI FALLASTER Y EN VERDE SI ACERTASTE ej. (Asia - America))
 
-console.log(QUESTIONS);
+
+// PREGUNTA DEL HMTL
+const idQuestionElement = document.getElementById('question');
+
+// CAJA CONTENEDERA DE LAS OPCIONES
+const boxOptionsElement = document.getElementById('box-options');
+
+// CREAMOS ARRAY PARA GUARDAR LAS RESPUESTAS ELEGIDAS POR EL USUARIO
+const userChoices = [];
+
+// COUNTERS PARA LAS PREGUNTAS Y LAS OPCIONES DE RESPUESTA
+let counterQuestion = 0;
+let counterOptions = 0;
+
+
+// GENERAMOS LA PREGUNTA
+const generateQuestion = () => {
+    const question = QUESTIONS[counterQuestion].question;
+    idQuestionElement.textContent = question;
+    counterQuestion++
+}
+
+
+// GENERAMOS LAS OPCIONES 
+const generateOption = () => {
+    const options = QUESTIONS[counterOptions].options
+    const optionBoxes = boxOptionsElement.querySelectorAll('.option-box');
+    optionBoxes.forEach((option, index) => {
+        option.textContent = options[index]
+    })
+    counterOptions++
+}
+
+
+// LLAMAR A LAS FUNCIONES Y GUARDAR LA ELECCION DEL USUARIO A CADA PREGUNTA
+boxOptionsElement.addEventListener('click', (event) => {
+    if (!event.target.dataset.button) return;
+    else {
+        userChoices.push(event.target.textContent);
+    }
+    generateQuestion()
+    generateOption()
+});

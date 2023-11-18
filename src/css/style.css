@@ -39,7 +39,7 @@ main {
   border: 3px solid #ffffff;
   border-radius: 10px;
   box-shadow: 1px 4px 7px 2px;
-  height: 380px;
+  height: 450px;
   width: 800px;
 }
 
@@ -58,15 +58,24 @@ main {
   justify-content: center;
 }
 
+.hide {
+  display: none;
+}
+
 .row-options {
   display: flex;
 }
 
 .option-box {
+  cursor: pointer;
+  align-items: center;
   background-color: rgb(219, 219, 255);
   border: 3px solid black;
   border-radius: 10px;
+  display: flex;
   font-size: 1.8em;
+  height: 100px;
+  justify-content: center;
   margin: 10px;
-  padding: 40px 100px;
+  width: 300px;
 }
