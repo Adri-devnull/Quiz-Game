@@ -161,7 +161,7 @@ const getCorrectAnswers = () => {
 const correctAnswers = getCorrectAnswers();
 
 
-// FUNCION PARA COMPARAR RESPUESTAS USUARIO Y CORRECT ANSWERS
+// FUNCION PARA PINTAR LAS RESPUESTAS Y CORRECTANSWERS
 let counterAnswers = 0;
 const verifyCorrectAnswers = () => {
     if (counterAnswers >= correctAnswers.length) {
@@ -176,7 +176,6 @@ const verifyCorrectAnswers = () => {
     answers.textContent = `${correctAnswer} - ${userAnswer}`;
     boxResultsElement.append(question);
     boxResultsElement.append(answers);
-
     counterAnswers++
 }
 
@@ -193,11 +192,13 @@ const generateQuestion = () => {
 }
 
 
-// GENERAMOS LAS OPCIONES 
+// GENERAMOS LAS OPCIONES Y LLAMAMOS A LA FUNCION DE PINTAR RESPUESTAS
 const generateOption = () => {
     if (counterOptions >= QUESTIONS.length) {
         boxQuizElement.classList.add('hide');
-        verifyCorrectAnswers();
+        setInterval(() => {
+            verifyCorrectAnswers();
+        }, 400);
         console.log('Se terminaron');
         return
     }
