@@ -135,6 +135,15 @@ const idQuestionElement = document.getElementById('question');
 // CAJA CONTENEDERA DE LAS OPCIONES
 const boxOptionsElement = document.getElementById('box-options');
 
+// CAJA CONTENEDORA DE LOS RESULTADOS
+const boxResultsElement = document.getElementById('box-results');
+
+// CAJA CONTENEDORA GENERAL
+const boxQuizElement = document.getElementById('box-quiz');
+
+// CREAMOS FRAGMENTO 
+const fragment = document.createDocumentFragment();
+
 // CREAMOS ARRAY PARA GUARDAR LAS RESPUESTAS ELEGIDAS POR EL USUARIO
 const userChoices = [];
 
@@ -158,11 +167,16 @@ const verifyCorrectAnswers = () => {
     if (counterAnswers >= correctAnswers.length) {
         return
     }
-    if (userChoices[counterAnswers] === correctAnswers[counterAnswers]) {
-        console.log('correcto');
-    } else {
-        console.log('MEH MEH');
-    }
+    const userAnswer = userChoices[counterAnswers];
+    const correctAnswer = correctAnswers[counterAnswers];
+    const questionContent = QUESTIONS[counterAnswers].question;
+    const question = document.createElement('h4');
+    question.textContent = questionContent;
+    const answers = document.createElement('p');
+    answers.textContent = `${correctAnswer} - ${userAnswer}`;
+    boxResultsElement.append(question);
+    boxResultsElement.append(answers);
+
     counterAnswers++
 }
 
@@ -182,6 +196,8 @@ const generateQuestion = () => {
 // GENERAMOS LAS OPCIONES 
 const generateOption = () => {
     if (counterOptions >= QUESTIONS.length) {
+        boxQuizElement.classList.add('hide');
+        verifyCorrectAnswers();
         console.log('Se terminaron');
         return
     }
@@ -202,5 +218,4 @@ boxOptionsElement.addEventListener('click', (event) => {
     }
     generateQuestion()
     generateOption()
-    verifyCorrectAnswers()
 });
