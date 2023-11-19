@@ -62,6 +62,14 @@ main {
   display: none;
 }
 
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: red;
+}
+
 .row-options {
   display: flex;
 }

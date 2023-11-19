@@ -143,8 +143,36 @@ let counterQuestion = 0;
 let counterOptions = 0;
 
 
+// FUNCION QUE GENERA EL ARRAY DE CORRECT ANSWERS
+const getCorrectAnswers = () => {
+    return QUESTIONS.map(qst => qst.correctAnswer);
+}
+
+// ARRAY CON CORRECT ANSWERS 
+const correctAnswers = getCorrectAnswers();
+
+
+// FUNCION PARA COMPARAR RESPUESTAS USUARIO Y CORRECT ANSWERS
+let counterAnswers = 0;
+const verifyCorrectAnswers = () => {
+    if (counterAnswers >= correctAnswers.length) {
+        return
+    }
+    if (userChoices[counterAnswers] === correctAnswers[counterAnswers]) {
+        console.log('correcto');
+    } else {
+        console.log('MEH MEH');
+    }
+    counterAnswers++
+}
+
+
+
 // GENERAMOS LA PREGUNTA
 const generateQuestion = () => {
+    if (counterQuestion >= QUESTIONS.length) {
+        return
+    }
     const question = QUESTIONS[counterQuestion].question;
     idQuestionElement.textContent = question;
     counterQuestion++
@@ -153,6 +181,10 @@ const generateQuestion = () => {
 
 // GENERAMOS LAS OPCIONES 
 const generateOption = () => {
+    if (counterOptions >= QUESTIONS.length) {
+        console.log('Se terminaron');
+        return
+    }
     const options = QUESTIONS[counterOptions].options
     const optionBoxes = boxOptionsElement.querySelectorAll('.option-box');
     optionBoxes.forEach((option, index) => {
@@ -170,4 +202,5 @@ boxOptionsElement.addEventListener('click', (event) => {
     }
     generateQuestion()
     generateOption()
+    verifyCorrectAnswers()
 });
