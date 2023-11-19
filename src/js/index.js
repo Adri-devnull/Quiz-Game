@@ -141,8 +141,8 @@ const boxResultsElement = document.getElementById('box-results');
 // CAJA CONTENEDORA GENERAL
 const boxQuizElement = document.getElementById('box-quiz');
 
-// CREAMOS FRAGMENTO 
-const fragment = document.createDocumentFragment();
+// TITULO RESPUESTAS FINALES HTML 
+const tittleResultsElement = document.getElementById('final-results');
 
 // CREAMOS ARRAY PARA GUARDAR LAS RESPUESTAS ELEGIDAS POR EL USUARIO
 const userChoices = [];
@@ -167,17 +167,31 @@ const verifyCorrectAnswers = () => {
     if (counterAnswers >= correctAnswers.length) {
         return
     }
-    const userAnswer = userChoices[counterAnswers];
-    const correctAnswer = correctAnswers[counterAnswers];
+    const userAnswerContent = userChoices[counterAnswers];
+    const correctAnswerContent = correctAnswers[counterAnswers];
     const questionContent = QUESTIONS[counterAnswers].question;
     const question = document.createElement('h4');
     question.textContent = questionContent;
     const answers = document.createElement('p');
-    answers.textContent = `${correctAnswer} - ${userAnswer}`;
+    const correctAnswer = document.createElement('span');
+    correctAnswer.textContent = `${correctAnswerContent} - `;
+    answers.append(correctAnswer);
+
+    const userAnswer = document.createElement('span');
+    userAnswer.textContent = userAnswerContent;
+    if (userAnswerContent === correctAnswerContent) {
+        userAnswer.classList.add('correct');
+    } else {
+        userAnswer.classList.add('incorrect');
+    }
+
+    answers.append(userAnswer);
+
     boxResultsElement.append(question);
     boxResultsElement.append(answers);
     counterAnswers++
 }
+
 
 
 
@@ -196,6 +210,7 @@ const generateQuestion = () => {
 const generateOption = () => {
     if (counterOptions >= QUESTIONS.length) {
         boxQuizElement.classList.add('hide');
+        tittleResultsElement.textContent = 'FINAL RESULTS';
         setInterval(() => {
             verifyCorrectAnswers();
         }, 400);

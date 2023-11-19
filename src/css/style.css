@@ -73,7 +73,7 @@ main {
 }
 
 .incorrect {
-  color: red;
+  color: rgb(255, 0, 0);
 }
 
 .row-options {
@@ -96,10 +96,17 @@ main {
 
 .box-results {
   width: 800px;
-  background-color: #697592;
+  background-color: #d7d8db;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  margin-bottom: 30px;
+}
+
+.final-results {
+  color: #fff;
+  text-align: center;
+  font-size: 1.7em;
 }
