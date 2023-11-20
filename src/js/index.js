@@ -114,21 +114,6 @@ const QUESTIONS = [
 ];
 
 
-
-document.addEventListener('DOMContentLoaded', () => {
-    generateQuestion()
-    generateOption()
-})
-
-
-// LOCALIZAR LA PREGUNTA DEL DOM
-// LOCALIZAR LA BOX DONDE ESTAN LOS BOTONES DE RESPUESTA Y SABER CUANDO SE HA PULSADO CADA UNO
-// CUANDO PULSES EN CUALQUIERA ALMACENAR TU OPCION ELEGIDA EN UN ARRAY PARA LUEGO COMPARARLO CON LA CORRECTANSWER AL FINAL
-// CADA VEZ QUE ELIGES UNA OPCION QUE SE PINTE UNA NUEVA PREGUNTA Y LAS OPCIONES DE RESPUESTA
-// CUANDO HAYAS COMPLETADO TODAS LAS PREGUNTAS TIENE QUE SALIR UNA LISTA CON EL TITULO DE FINAL RESULT
-// CADA UNA DE LAS PREGUNTAS Y ABAJO LA OPCION CORRECTA Y LA QUE TU HAS ELEGIDO (EN ROJO SI FALLASTER Y EN VERDE SI ACERTASTE ej. (Asia - America))
-
-
 // PREGUNTA DEL HMTL
 const idQuestionElement = document.getElementById('question');
 
@@ -143,6 +128,8 @@ const boxQuizElement = document.getElementById('box-quiz');
 
 // TITULO RESPUESTAS FINALES HTML 
 const tittleResultsElement = document.getElementById('final-results');
+
+const optionBoxes = boxOptionsElement.querySelectorAll('.option-box');
 
 // CREAMOS ARRAY PARA GUARDAR LAS RESPUESTAS ELEGIDAS POR EL USUARIO
 const userChoices = [];
@@ -194,7 +181,6 @@ const verifyCorrectAnswers = () => {
 
 
 
-
 // GENERAMOS LA PREGUNTA
 const generateQuestion = () => {
     if (counterQuestion >= QUESTIONS.length) {
@@ -218,12 +204,17 @@ const generateOption = () => {
         return
     }
     const options = QUESTIONS[counterOptions].options
-    const optionBoxes = boxOptionsElement.querySelectorAll('.option-box');
     optionBoxes.forEach((option, index) => {
         option.textContent = options[index]
     })
     counterOptions++
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    generateQuestion()
+    generateOption()
+})
 
 
 // LLAMAR A LAS FUNCIONES Y GUARDAR LA ELECCION DEL USUARIO A CADA PREGUNTA
